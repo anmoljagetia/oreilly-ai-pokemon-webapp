@@ -23,7 +23,7 @@ This repo contains the code for webapp hosted at https://pokedex.anmoljagetia.me
 :point_down:Screenshot:
 
 <p align="center">
-  <img src="https://s18.postimg.org/l01x6fn3d/demo1.png" width="600px" alt="">
+  <img src="https://s18.postimg.cc/l01x6fn3d/demo1.png" width="600px" alt="">
 </p>
 
 ------------------
@@ -62,7 +62,7 @@ $ python app.py
 Open http://localhost:5000 and have fun. :smiley:
 
 <p align="center">
-  <img src="https://s18.postimg.org/5ekln1vvt/demo2.gif" width="600px" alt="">
+  <img src="https://s18.postimg.cc/5ekln1vvt/demo2.gif" width="600px" alt="">
 </p>
 
 ------------------

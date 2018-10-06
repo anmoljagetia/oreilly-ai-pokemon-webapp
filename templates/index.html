@@ -1,31 +1,314 @@
-{% extends "base.html" %} {% block content %}
+<!--<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Simplest possible examples of HTML, CSS and JavaScript.">
+<meta name="author" content="//samdutton.com">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta itemprop="name" content="simpl.info: simplest possible examples of HTML, CSS and JavaScript">
+<meta itemprop="image" content="/images/icons/icon192.png">
+<meta id="theme-color" name="theme-color" content="#fff">
+<link rel="icon" href="/images/icons/icon192.png">
+<base target="_blank">
 
-<h2>Image Classifier</h2>
 
-<div>
-    <form id="upload-file" method="post" enctype="multipart/form-data">
-        <label for="imageUpload" class="upload-label">
-            Choose...
-        </label>
-        <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg">
-    </form>
+<title>MediaStreamTrack.getSources()</title>
 
-    <div class="image-section" style="display:none;">
-        <div class="img-preview">
-            <div id="imagePreview">
-            </div>
+<link rel="stylesheet" href="../../css/main.css">
+
+<style>
+div.select {
+  margin: 0 0 1em 0;
+}
+</style>
+
+</head>
+
+<body>
+    -->
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+    *{
+      box-sizing: border-box;
+      margin: 0;
+      border:0;
+      padding: 0;
+    }
+    body{
+      font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+      font-size: 16px;
+    }
+    .main-wrapper{
+        width: 634px;
+        margin:0px auto;
+        padding-top: 40px;
+    }
+    .select-media{
+      text-transform: capitalize;
+    }
+    .video-wrapper{
+      position: relative;
+      width: 90%;
+      border: 5px solid #4c4c4c;
+      margin:0px auto;
+      border-radius: 6px;
+      background: #afd2df;
+    }
+    #myCanvas{
+      width:100%;
+      position: absolute;
+    }
+    .show-name-wrapper{
+      border-radius: 6px;
+      width: 90%;
+      margin:40px auto;
+      position: relative;
+      padding: 20px;
+      height: 60px;
+    }
+    .ts-wrapper{
+      width: 300px;
+      margin:0px auto;
+      padding-bottom: 40px;
+    }
+    .videostream{
+      width: 100%;
+    }
+    #result{
+      text-transform: uppercase;
+      font-size: 24px;
+      font-weight: 700;	      
+      text-align: center;	      
+    }
+    .btn{
+      width: 200px;
+      height: 50px;
+      padding: 10px 20px;      
+      border-radius: 20px;
+      text-align: center;
+      margin:0px auto;
+      display: block;
+      background: #fd624c;
+      color: #ffffff;
+      font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+      font-weight: 700;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      -webkit-transition: all 0.3s ease;
+    }
+    .btn:hover{
+      border-radius: 10px;
+    }
+    .screenshot-img{
+      display: none;
+    }
+    .select-media{
+      margin:20px auto 40px auto;
+      display: block;
+      padding: 5px;
+      width: 150px;
+      border: 1px solid #4c4c4c;
+    }
+    .loading {
+      width: 60px;
+      display: none;
+      height: 60px;
+      position: absolute;
+      left: calc(50% - 30px);
+      top:0px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @media only screen and (max-width: 640px){
+      .main-wrapper{
+        width: 100%;
+      }
+      .video-wrapper{
+      	height: 310px;
+      }
+      .videostream{
+      	height:300px;
+      }
+      .pokedex-wrapper{
+        background-size: 100%;
+      }
+    }
+  </style>
+</head>
+<!-- <div id="container">
+  <div class="select">
+    <label for="audioSource">Audio source: </label><select id="audioSource"></select>
+  </div>
+  <div>
+  <h3 id="result" style="z-index: 1000;">
+      <span>The result is :  </span>
+  </h3>
+  </div>
+  <div class="select">
+    <label for="videoSource">Video source: </label><select id="videoSource"></select>
+  </div>
+
+  <video muted autoplay></video>
+  <div id="screenshot" style="text-align:center;">
+        <video class="videostream" autoplay=""></video>
+          <img id="screenshot-img">
+     <p><button id="screenshot-button">Take screenshot</button></p>
+  </div>
+
+  <form action="/predict" method="post">
+      <canvas id="myCanvas"></canvas>
+  </form> -->
+
+  <div class="main-wrapper">
+    <div class="pokedex-wrapper">
+      <div class="videomedia-select">
+        <select id="videoSource" class="select-media"></select>
+      </div>
+      <div class="video-wrapper">
+        <video class="videostream" id="video_preview" autoplay=""></video>
+        <img id="screenshot-img" class="screenshot-img">
+      </div>
+      <div class="show-name-wrapper">
+        <div class="loading">
+          <img src="../static/img/pokeball.png">
         </div>
-        <div>
-            <button type="button" class="btn btn-primary btn-lg " id="btn-predict">Predict!</button>
-        </div>
+        <p id="result"></p>
+      </div>
+      <div class="ts-wrapper">
+        <button id="screenshot_button" name="screenshot_button" class="btn">Identify Pokemon</button>
+      </div>
     </div>
+  </div>
 
-    <div class="loader" style="display:none;"></div>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 
-    <h3 id="result">
-        <span> </span>
-    </h3>
+<script>
+'use strict';
+var videoElement = document.getElementById('video_preview');
+//var audioSelect = document.querySelector('select#audioSource');
+var videoSelect = document.getElementById('videoSource');
 
-</div>
+navigator.mediaDevices.enumerateDevices()
+  .then(gotDevices).then(getStream).catch(handleError);
 
-{% endblock %}
+//audioSelect.onchange = getStream;
+videoSelect.onchange = getStream;
+
+function gotDevices(deviceInfos) {
+  for (var i = 0; i !== deviceInfos.length; ++i) {
+    var deviceInfo = deviceInfos[i];
+    var option = document.createElement('option');
+    option.value = deviceInfo.deviceId;
+    //if (deviceInfo.kind === 'audioinput') {
+    //  option.text = deviceInfo.label ||
+    //    'microphone ' + (audioSelect.length + 1);
+    //  audioSelect.appendChild(option);
+    //} 
+   if (deviceInfo.kind === 'videoinput') {
+      option.text = deviceInfo.label || 'camera ' +
+        (videoSelect.length + 1);
+      videoSelect.appendChild(option);
+    } else {
+      console.log('Found one other kind of source/device: ', deviceInfo);
+    }
+  }
+}
+
+function getStream() {
+  if (window.stream) {
+    window.stream.getTracks().forEach(function(track) {
+      track.stop();
+    });
+  }
+
+  var constraints = {
+    //audio: {
+    //  deviceId: {exact: audioSelect.value}
+    //},
+    video: {
+      deviceId: {exact: videoSelect.value}
+    }
+  };
+
+  navigator.mediaDevices.getUserMedia(constraints).
+    then(gotStream).catch(handleError);
+}
+
+function gotStream(stream) {
+  window.stream = stream; // make stream available to console
+  videoElement.srcObject = stream;
+}
+
+function handleError(error) {
+  console.log('Error: ', error);
+}
+</script>
+
+<script>
+//const captureVideoButton =
+//  document.querySelector('#screenshot .capture-button');
+  var screenshotButton = document.getElementById('screenshot_button');
+  var img = document.getElementById('screenshot-img');
+  var video = document.getElementById('video_preview');
+
+  var canvas = document.createElement('canvas');
+  console.log(canvas);
+  //captureVideoButton.onclick = function() {
+  //          navigator.mediaDevices.getUserMedia(constraints).
+  //                  then(handleSuccess).catch(handleError);
+  //};
+  $(screenshotButton).click(function(){
+    screenshot();
+  });
+
+ $(video).click(function(){
+    screenshot();
+  });
+
+ function screenshot() {
+	 $('.loading').fadeIn(300);
+	 $('#result').fadeOut();
+      canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+          canvas.getContext('2d').drawImage(video, 0, 0);
+            // Other browsers will fall back to image/png
+          console.log(img);
+            img.src = canvas.toDataURL('image/png');
+        var xhttp = new XMLHttpRequest();
+        img2 = canvas.toDataURL('image/png');
+        xhttp.open("POST", "/predict", true);
+        xhttp.setRequestHeader("Content-type", "application/octet-stream");
+        xhttp.onreadystatechange = function() {//Call a function when the state changes.
+                if(this.readyState == 4 && this.status == 200) {
+                            // Request finished. Do processing here.
+                        data = xhttp.responseText;
+                        console.log(data);
+            $('.loading').fadeOut(300);
+	    $('#result').fadeIn(300);
+                        document.getElementById('result').innerHTML = data;
+                }
+        }
+        xhttp.send(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
+        //document.forms["my_form"].submit();
+};
+
+function handleSuccess(stream) {
+      screenshotButton.disabled = false;
+        video.srcObject = stream;
+}
+
+</script>

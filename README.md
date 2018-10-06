@@ -1,12 +1,5 @@
-<<<<<<< HEAD
 # oreilly-ai-pokemon-webapp
 This repo contains the code for webapp hosted at https://pokedex.anmoljagetia.me demoed at the O'Reilly AI Conf in London
-=======
-=======
-# Deploy Keras Model with Flask as Web App in 10 Minutes
-
-[![](https://img.shields.io/badge/python-2.7%2C%203.5%2B-green.svg)]()
-[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
 
 > A pretty and customizable web app to deploy your DL model with ease
 
@@ -20,11 +13,6 @@ This repo contains the code for webapp hosted at https://pokedex.anmoljagetia.me
 - Check http://localhost:5000
 - Done! :tada:
 
-:point_down:Screenshot:
-
-<p align="center">
-  <img src="https://s18.postimg.cc/l01x6fn3d/demo1.png" width="600px" alt="">
-</p>
 
 ------------------
 

@@ -1,7 +1,5 @@
-# oreilly-ai-pokemon-webapp
-This repo contains the code for webapp hosted at https://pokedex.anmoljagetia.me demoed at the O'Reilly AI Conf in London
-
-> A pretty and customizable web app to deploy your DL model with ease
+# O'Reilly AI Pokemon Webapp
+This repo contains the code for webapp hosted at https://pokedex.anmoljagetia.me demoed at the O'Reilly AI Conf, 2018 in London.
 
 ------------------
 
@@ -13,7 +11,6 @@ This repo contains the code for webapp hosted at https://pokedex.anmoljagetia.me
 - Check http://localhost:5000
 - Done! :tada:
 
-
 ------------------
 
 ## Docker Installation
@@ -23,7 +20,7 @@ Build the image
 ```shell
 cd keras-flask-deploy-webapp
 docker build -t keras_flask .
-docker run -e MODEL_PATH=models/your_model.h5 -p 5000:5000
+docker run -p 5000:5000
 ```
 
 You can mount your model into the container.
@@ -66,10 +63,6 @@ $ python app.py
 
 Open http://localhost:5000 and have fun. :smiley:
 
-<p align="center">
-  <img src="https://s18.postimg.cc/5ekln1vvt/demo2.gif" width="600px" alt="">
-</p>
-
 ------------------
 
 ## Customization
@@ -78,14 +71,9 @@ Open http://localhost:5000 and have fun. :smiley:
 
 Place your trained `.h5` file saved by `model.save()` under models directory.
 
-Check the [commented code](https://github.com/mtobeiyf/keras-flask-deploy-webapp/blob/master/app.py#L25) in app.py.
-
-
 ### Use other pre-trained model
 
 See [Keras applications](https://keras.io/applications/) for more available models such as DenseNet, MobilNet, NASNet, etc.
-
-Check [this section](https://github.com/mtobeiyf/keras-flask-deploy-webapp/blob/master/app.py#L25) in app.py.
 
 ### UI Modification
 
@@ -111,25 +99,13 @@ $ gunicorn -b 127.0.0.1:5000 app:app
 
 More deployment options, check [here](http://flask.pocoo.org/docs/0.12/deploying/wsgi-standalone/)
 
-### Set up Nginx
+### Set up Nginx as Reverse Proxy
 
-To redirect the traffic to your local app.
-Configure your Nginx `.conf` file.
-```
-server {
-    listen  80;
+Look at the `nginx.conf` file in the repo.
 
-    client_max_body_size 20M;
-
-    location / {
-        proxy_pass http://127.0.0.1:5000;
-    }
-}
-```
 
 ## More resources
 
 Check Siraj's ["How to Deploy a Keras Model to Production"](https://youtu.be/f6Bf3gl4hWY) video. The corresponding [repo](https://github.com/llSourcell/how_to_deploy_a_keras_model_to_production).
 
 [Building a simple Keras + deep learning REST API](https://blog.keras.io/building-a-simple-keras-deep-learning-rest-api.html)
->>>>>>> fc79ca3... :memo: Update README
